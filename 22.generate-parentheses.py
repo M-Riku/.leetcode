@@ -24,7 +24,6 @@ class Solution:
                     recur(tmp.copy(), letter+")", n)
         
         res = []
-        recur(res, "", n)
-        res.pop(0)
+        recur([], "", n)
         return res
 
