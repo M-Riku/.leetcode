@@ -14,25 +14,15 @@ class Solution:
         if head == None:
             return head
         
-        tail = cur = lead = head
+        tail = cur = head
         for i in range(n):
             tail = tail.next
         if tail == None:
             return head.next
-        
-        i = 0
-        while(True):
-            if (i > 1):
-                break
-            if (lead == None):
-                return None
-
-            lead = lead.next
-            i += 1
 
         while(tail.next):
             tail = tail.next
-            lead = lead.next
             cur = cur.next
-        cur.next = lea
+        cur.next = cur.next.next
+        return head
 
