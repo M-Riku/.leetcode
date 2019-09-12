@@ -8,10 +8,8 @@ class Solution:
         if n == 0:
             return 1
         if n < 0:
-            n = -n
-            x = 1/x
-        res = x
-        i = 1
+            n, x = -n, 1/x
+        res, i = x, 1
         while i + i <= n:
             res = res * res
             i += i
