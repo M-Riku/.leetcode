@@ -1,2 +1,4 @@
 .idea/*
-*test*
+.ipynb_checkpoints/*
+
+*.ipynb
