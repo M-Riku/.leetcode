@@ -5,27 +5,41 @@
 #
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20]]
+        if matrix == []:
+            return []
         m, n = len(matrix), len(matrix[0])
         result = []
-        loop = min(m,n) // 2
+        loop = (min(m,n)+1) // 2
+        flag = True
         for i in range(loop):
             col, row = i, i- 1 
             while row < n - i - 1:
                 row += 1
-                print(col, row)
                 result.append(matrix[col][row])
+                flag = True
+            if not flag:
+                break
+            flag = False
             while col < m - i - 1:
                 col += 1
-                print(col, row)
                 result.append(matrix[col][row])
+                flag = True
+            if not flag:
+                break
+            flag = False
             while row > i:
                 row -= 1
-                print(col, row)
                 result.append(matrix[col][row])
+                flag = True
+            if not flag:
+                break
+            flag = False
             while col > i + 1:
                 col -= 1
-                print(col, row)
                 result.append(matrix[col][row])
+                flag = True
+            if not flag:
+                break
+            flag = False
         return result
 
