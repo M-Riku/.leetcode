@@ -7,17 +7,24 @@
 # @lc code=start
 class Solution:
     def climbStairs(self, n: int) -> int:
-        def curClimb(cur, way):
-            if cur == 0:
-                result.append(way)
-            else:
-                if cur > 1:
-                    curClimb(cur - 2, way + [2])
-                curClimb(cur - 1, way + [1])
+        def C(r, n):
+            upper = lower = 1
+            for x in range(n):
+                upper *= (x+1)
+            for x in range(r):
+                lower *= (x+1)
+            for x in range(n-r):
+                lower *= (x+1)
+            return (upper // lower)
 
-        result = []
-        curClimb(n, [])
-        return len(result)
+        i, j = 0, n
+        count = 0
+        while i <= j:
+            count += C(i, j)
+            i += 1
+            j -= 1
+
+        return count
         
 # @lc code=end
 
