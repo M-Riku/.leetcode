@@ -5,16 +5,12 @@
 #
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [0] * n
-        res = nums[0]
-        dp[0] = nums[0]
-
-        for i in range(1,n):
-            if dp[i-1] < 0:
-                dp[i] = nums[i]
-            else:
-                dp[i] = dp[i - 1] + nums[i]
-            res = max(res, dp[i])
-        return res
-
+        result = -10**9
+        count = 0
+        for right in range(len(nums)):
+            count += nums[right]
+            if count > result:
+                result = count
+            if count < 0:
+                count = 0
+        return result

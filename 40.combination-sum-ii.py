@@ -5,31 +5,28 @@
 #
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        def cur(sol, cur_cand, cur_tar):
-            if cur_tar == 0:
-                result.append(sol)
-            elif cur_tar > 0:
-                for j in range(len(cur_cand)):
-                    i = cur_cand[j]
-                    if cur_tar - i < 0:
-                        continue
-                    else:
-                        next_cand = cur_cand.copy()
-                        next_cand.remove(i)
-                        cur(sol + [i], next_cand, cur_tar - i)
-
-        def remove_duplicate(res):
-            hash_res = set()
-            for l in res:
-                l.sort()
-                hash_res.add(tuple(l))
-            res = []
-            for l in hash_res:
-                res.append(list(l))
-            return res
-
         result = []
-        cur([], candidates, target)
-        result = remove_duplicate(result)
-        return result
+        pattern = []
+# 1 1 2 5 6 7 10
 
+        def backtracking(start_idx: int, cur_sum: int):
+            if cur_sum == target:
+                result.append(pattern[:])
+                return
+
+            for i in range(start_idx, len(candidates)):
+                n = candidates[i]
+                if cur_sum + n > target:
+                    return
+
+                if i > start_idx and n == candidates[i-1]:
+                    continue
+                cur_sum += n
+                pattern.append(n)
+                backtracking(i+1, cur_sum)
+                cur_sum -= n
+                pattern.pop()
+
+        candidates.sort()
+        backtracking(0, 0)
+        return result

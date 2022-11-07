@@ -5,23 +5,24 @@
 #
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def cur(sol, cur_tar):
-            if cur_tar == 0:
-                result.append(sol)
-            elif cur_tar > 0:
-                if sol:
-                    start = candidates.index(sol[-1])
-                else:
-                    start = 0
-                for i in candidates[start:]:
-                    if cur_tar - i < 0:
-                        break
-                    else:
-                        cur(sol + [i], cur_tar - i)
-
         result = []
-        candidates.sort()
-        cur([], target)
+        pattern = []
+
+        def backtracking(cur_sum, start_index):
+            if cur_sum == target:
+                result.append(pattern[:])
+                return
+
+            if cur_sum > target:
+                return
+
+            for i in range(start_index, len(candidates)):
+                n = candidates[i]
+                pattern.append(n)
+                cur_sum += n
+                backtracking(cur_sum, i)
+                pattern.pop()
+                cur_sum -= n
+
+        backtracking(0, 0)
         return result
-
-

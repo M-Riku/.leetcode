@@ -7,25 +7,16 @@
 # @lc code=start
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        i, j = 0, 1
         result = []
-        while j < len(intervals):
-            is_merge = False
-            while j < len(intervals) and intervals[j][0] <= intervals[j-1][1]:
-                j += 1
-                is_merge = True
-
-            if is_merge:
-                result.append([intervals[i][0], intervals[j-1][1]])
-                i = j
-                j += 1
+        intervals.sort(key=lambda x: x[0])
+        left, right = intervals[0][0], intervals[0][1]
+        for i in range(len(intervals)-1):
+            if intervals[i][1] >= intervals[i+1][0]:
+                intervals[i+1][1] = max(intervals[i][1], intervals[i+1][1])
             else:
-                result.append(intervals[i])
-                i == j
-                j += 1
-        if j == len(intervals):
-            result.append(intervals[-1])
-        
+                result.append([left, right])
+                left = intervals[i+1][0]
+            right = intervals[i+1][1]
+        result.append([left, right])
         return result
 # @lc code=end
-

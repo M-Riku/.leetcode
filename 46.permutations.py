@@ -5,18 +5,24 @@
 #
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def recur(cur_res, cur_nums):
-            if not cur_nums:
-                result.append(cur_res)
-            else:
-                for i in cur_nums:
-                    next_res = cur_res.copy()
-                    next_res.append(i)
-                    next_nums = cur_nums.copy()
-                    next_nums.remove(i)
-                    recur(next_res, next_nums)
-
         result = []
-        recur([], nums)
-        return result
+        pattern = []
+        used_list = [False] * len(nums)
 
+        def backtracking(used_list: List):
+            if len(pattern) == len(nums):
+                result.append(pattern[:])
+                return
+
+            for i in range(len(nums)):
+                if used_list[i]:
+                    continue
+
+                pattern.append(nums[i])
+                used_list[i] = True
+                backtracking(used_list)
+                used_list[i] = False
+                pattern.pop()
+
+        backtracking(used_list)
+        return result

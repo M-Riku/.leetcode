@@ -5,11 +5,11 @@
 #
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        dump_dis = 0
-        for i in range(len(nums)):
-            if i > dump_dis:
+        max_len = 0
+        for i in range(len(nums)-1):
+            max_len = max(max_len, i+nums[i])
+            if i == max_len:
                 return False
-            dump_dis = max(dump_dis, nums[i] + i)
+            if max_len >= len(nums)-1:
+                return True
         return True
-        
-
